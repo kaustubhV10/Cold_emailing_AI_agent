@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Cold Email Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        label { display: inline-block; width: 150px; margin-top: 10px; }
+        input, select, textarea, button { margin-top: 5px; }
+        #statusMessage { color: red; margin-top: 10px; }
+        #emailDraft { width: 100%; max-width: 800px; }
+    </style>
+</head>
+<body>
+<h2>AI Cold Email Generator</h2>
+
+<div id="statusMessage">Status messages will appear here.</div>
+
+<form id="emailForm">
+    <label for="company">Company Name:</label>
+    <input type="text" id="company" name="company" required><br>
+
+    <label for="role">Role:</label>
+    <input type="text" id="role" name="role" required><br>
+
+    <label for="resume">Attach Resume (PDF):</label>
+    <input type="file" id="resume" name="resume" accept=".pdf"><br>
+
+    <button type="submit">Generate Email Draft</button>
+</form>
+
+<h3>Generated Email Draft:</h3>
+<textarea id="emailDraft" rows="20" cols="80" readonly>No draft generated yet.</textarea><br>
+
+<label for="recipientDropdown">Select Recipient Email:</label>
+<select id="recipientDropdown">
+    <option value="">--Select Email--</option>
+</select><br><br>
+
+<button id="sendBtn">Send Email</button>
+
+<script src="/static/scripts.js"></script>
+<script>
+    // Fallback if script fails to load
+    if (typeof document.getElementById("emailForm") === "undefined") {
+        document.getElementById("statusMessage").innerText = 
+            "Error: scripts.js failed to load. Please check your connection or try refreshing the page.";
+    }
+</script>
+</body>
+</html>
