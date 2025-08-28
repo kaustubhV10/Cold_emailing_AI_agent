@@ -1,4 +1,4 @@
-import os, re, shutil, smtplib
+import os, re, smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
@@ -15,8 +15,8 @@ load_dotenv()
 # Environment variables
 # ----------------------------
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-SMTP_USER = os.getenv("SMTP_USER")
-SMTP_PASS = os.getenv("SMTP_PASS")
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 SENDER_NAME = os.getenv("SENDER_NAME")
 SENDER_PHONE = os.getenv("SENDER_PHONE")
 LINKEDIN_URL = os.getenv("LINKEDIN_URL")
@@ -121,7 +121,7 @@ def send_email(to_email: str, subject: str, body: str, resume_path: str = None) 
     """Send email with optional PDF attachment safely."""
     try:
         msg = MIMEMultipart()
-        msg["From"] = SMTP_USER
+        msg["From"] = EMAIL_ADDRESS
         msg["To"] = to_email
         msg["Subject"] = subject
         msg.attach(MIMEText(body, "plain"))
@@ -135,7 +135,7 @@ def send_email(to_email: str, subject: str, body: str, resume_path: str = None) 
             msg.attach(part)
 
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-            server.login(SMTP_USER, SMTP_PASS)
+            server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
             server.send_message(msg)
 
         return "Email sent successfully."
